@@ -48,7 +48,16 @@ class BlogPost(db.Model):
 # routes
 @app.route("/user", methods=["POST"])
 def create_user():
-    pass
+    data = request.get_json()
+    new_user = User(
+        name=data["name"],
+        email=data["email"],
+        address=data["address"],
+        phone=data["phone"]
+    )
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({"message": "User created"}, 200)
 
 
 @app.route("/user/descending_id", methods=["GET"])
@@ -94,4 +103,3 @@ def delete_blog_post(blog_post_id):
 if __name__ == "__main__":
     app.run(debug=True, port=3000)
 
-    
