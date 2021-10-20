@@ -5,6 +5,7 @@ from sqlalchemy.engine import Engine
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import linked_list
+import hash_table
 
 # app configuration
 app = Flask(__name__)
@@ -127,7 +128,17 @@ def delete_user(user_id):
 
 @app.route("/blog_post/<user_id>", methods=["POST"])
 def create_blog_post(user_id):
-    pass
+    data = request.get_json()
+
+    user = User.query.filter_by(id=user_id).first()
+    if not user:
+        return jsonify({"message": "user does not exist"}), 400
+
+    ht = hash_table.HashTable(10)
+    ht.add_key_value("title", data["title"])
+    ht.add_key_value("body", data["body"])
+    ht.add_key_value("date", now)
+    ht.add_key_value("user_id", user_id)
 
 
 @app.route("/user/<user_id>", methods=["GET"])
