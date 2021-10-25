@@ -1,5 +1,5 @@
 class Node:
-    def __init__(self, data, next_node=None):
+    def __init__(self, data=None, next_node=None):
         self.data = data
         self.next_node = next_node
 
@@ -38,7 +38,7 @@ class HashTable:
         if self.hash_table[hashed_key] is not None:
             node = self.hash_table[hashed_key]
             if node.next_node is None:
-                return node.data.key
+                return node.data.value
             while node.next_node:
                 if key == node.data.key:
                     return node.data.value
@@ -46,5 +46,26 @@ class HashTable:
 
             if key == node.data.key:
                 return node.data.value
-            return None
+        return None
 
+    def print_table(self):
+        print("{")
+        for i, val in enumerate(self.hash_table):
+            if val is not None:
+                llist_string = ""
+                node = val
+                if node.next_node:
+                    while node.next_node:
+                        llist_string += (
+                            str(node.data.key) + " : " + str(node.data.value) + " --> "
+                        )
+                        node = node.next_node
+                    llist_string += (
+                        str(node.data.key) + " : " + str(node.data.value) + " --> None"
+                    )
+                    print(f"    [{i}] {llist_string}")
+                else:
+                    print(f"    [{i}] {val.data.key} : {val.data.value}")
+            else:
+                print(f"    [{i}] {val}")
+        print("}")
