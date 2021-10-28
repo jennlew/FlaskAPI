@@ -135,6 +135,7 @@ def create_blog_post(user_id):
         return jsonify({"message": "user does not exist"}), 400
 
     ht = hash_table.HashTable(10)
+
     ht.add_key_value("title", data["title"])
     ht.add_key_value("body", data["body"])
     ht.add_key_value("date", now)
