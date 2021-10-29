@@ -9,22 +9,22 @@ class BinarySearchTree:
     def __init__(self):
         self.root = None
 
-    def _insert_recursive(self, value, node):
-        if value < node.data:
+    def _insert_recursive(self, data, node):
+        if data["id"] < node.data["id"]:
             if node.left is None:
-                node.left = Node(value)
+                node.left = Node(data)
             else:
-                self._insert_recursive(value, node.left)
-        elif value > node.data:
+                self._insert_recursive(data, node.left)
+        elif data["id"] > node.data["id"]:
             if node.right is None:
-                node.right = Node(value)
+                node.right = Node(data)
             else:
-                self._insert_recursive(value, node.right)
+                self._insert_recursive(data, node.right)
         else:
             return
 
-    def insert(self, value):
+    def insert(self, data):
         if self.root is None:
-            self.root = Node(value)
+            self.root = Node(data)
         else:
-            self._insert_recursive(value, self.root)
+            self._insert_recursive(data, self.root)
